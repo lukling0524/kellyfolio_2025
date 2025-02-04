@@ -1,0 +1,61 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:map';
+
+// px to rem 변환
+$base-rem-size: 16; // rem 기준 단위
+
+@function rem($value, $base: $base-rem-size) {
+	$value: calc($value / 1px); // px 단위 삭제
+	@return calc($value / $base) * 1rem;
+}
+
+// theme
+$colors: (
+	light: (
+		color-bg: #fafafa,
+		color-font: #222222,
+		color-toggle: #227176,
+		color-mint: #39adb5,
+		color-lightblue: #8796b0,
+	),
+	dark: (
+		color-bg: #1a2744,
+		color-font: #ffffff,
+		color-toggle: #8eb0c4,
+		color-mint: #89ddff,
+		color-lightblue: #afc9d3,
+	),
+);
+
+@function get-color($key, $type: 'dark') {
+	@each $name, $color in map-get($colors, $type) {
+		@if ($key == $name) {
+			@return $color;
+		}
+	}
+}
+
+@mixin get-color($property, $color) {
+	#{$property}: get-color($color);
+
+	@at-root .light-theme & {
+		#{$property}: get-color($color, light);
+	}
+}
+
+// SVG icons
+@function icon($iconName, $color: #ffffff) {
+	$color-str: meta.inspect($color); // 문자열 반환
+	$color: string.slice($color-str, 2); // '#'삭제 후 HEX값만 반환
+
+	$iconList: (
+		selectArrow:
+			"%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='20' fill='none'%3E%3Cpath stroke='%23#{$color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='1.5' d='m15.5 8-5 5-5-5'/%3E%3C/svg%3E",
+		linkArrow:
+			"%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='20' fill='none'%3E%3Cpath stroke='%23#{$color}' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1.5' d='m8.5 15 4-4-4-4'/%3E%3C/svg%3E",
+	);
+
+	$icon: map.get($iconList, $iconName);
+	@return url('data:image/svg+xml;charset=utf8,#{$icon}');
+}

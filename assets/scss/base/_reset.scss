@@ -1,20 +1,10 @@
-/* ==========================================================
-=============================================================
-=============================================================
-= base 
-= reset 
-=============================================================
-=============================================================
-=============================================================*/
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+@use '@css/abstracts' as *;
 
 *,
 *::before,
 *::after {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html,
@@ -52,166 +42,175 @@ dl,
 dt,
 dd,
 fieldset {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: middle;
-    -webkit-text-size-adjust: none;
-    font-style: normal;
-    font-weight: 400;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: middle;
+	-webkit-text-size-adjust: none;
+	font-style: normal;
+	font-weight: 400;
 }
 
 span {
-    font-size: inherit;
-    font-weight: inherit;
-    vertical-align: unset;
+	font-size: inherit;
+	font-weight: inherit;
+	vertical-align: unset;
+}
+
+strong {
+	font-weight: 700;
 }
 
 ul,
 ol,
 li,
 dl {
-    list-style: none;
+	list-style: none;
 }
 
 br {
-    font-family: dotum;
+	font-family: dotum;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+	text-decoration: none;
+	color: inherit;
+
+	&:focus {
+		opacity: 1;
+	}
 }
 
 button:disabled,
 button[disabled] {
-    -webkit-tap-highlight-color: transparent;
-    color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	color: inherit;
 }
 
 hr {
-    display: none;
+	display: none;
 }
 
 button {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
-    font-size: 100%;
-    line-height: 1.6;
-    outline: none !important;
-    background: none;
-    cursor: pointer;
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	line-height: 1.6;
+	outline: none !important;
+	background: none;
+	cursor: pointer;
+
+	&:disabled,
+	&[disabled] {
+		-webkit-tap-highlight-color: transparent;
+		color: inherit;
+		cursor: not-allowed;
+		transition: none;
+	}
 }
 
 i {
-    font-style: normal;
+	font-style: normal;
 }
 
 a,
 area,
 button,
-[role="button"],
-input:not([type="range"]),
+[role='button'],
+input:not([type='range']),
 label,
 select,
 summary,
 textarea {
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
 }
 
 table {
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
 
 caption,
 legend {
-    padding: 0;
-    font-size: 0;
-    text-indent: -9999px;
+	padding: 0;
+	font-size: 0;
+	text-indent: -9999px;
 }
 
 th {
-    text-align: inherit;
+	text-align: inherit;
+}
+
+input,
+select,
+textarea {
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 input {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    vertical-align: middle;
-    line-height: 100%;
-    background-color: transparent;
-    border: 1px solid transparent;
-    font-family: inherit;
-    appearance: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	vertical-align: middle;
+	line-height: 100%;
+	background-color: transparent;
+	border: 1px solid transparent;
+	font-family: inherit;
+	appearance: none;
 }
 
 textarea {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: inherit;
-    box-sizing: border-box;
-    appearance: none;
-    //@include scrollbar;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: inherit;
+	box-sizing: border-box;
+	appearance: none;
 }
 
 select {
-    color: inherit;
-    background-color: inherit;
-    font-family: inherit;
-    line-height: 100%;
-    border-width: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+	color: inherit;
+	background-color: inherit;
+	font-family: inherit;
+	line-height: 100%;
+	border-width: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 
-select::-ms-expand {
-    display: none
+	&::-ms-expand {
+		display: none;
+	}
 }
 
 html {
-    position: relative;
-    width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    height: 100%;
-    line-height: 1.6;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -ms-overflow-style: scrollbar;
-    -webkit-tap-highlight-color: transparent;
-    font-size: 100%;
-    scroll-behavior: smooth;
+	position: relative;
+	width: 100%;
+	min-width: 100%;
+	min-height: 100%;
+	height: 100%;
+	line-height: 1.6;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+	-webkit-tap-highlight-color: transparent;
+	font-size: 100%;
+	scroll-behavior: smooth;
 }
 
 body {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-    font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
-    text-align: left;
-    -webkit-font-smoothing: antialiased;
-    word-break: keep-all;
-}
-
-a:focus {
-    opacity: 1;
-}
-
-.hide,
-.hidden {
-    display: none !important;
-}
-
-.text-hide {
-    font-size: 0 !important;
-    text-indent: -9999px;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	text-align: left;
+	font-size: rem(16px);
+	// color: $c-text-black;
+	-webkit-font-smoothing: antialiased;
+	word-break: keep-all;
 }

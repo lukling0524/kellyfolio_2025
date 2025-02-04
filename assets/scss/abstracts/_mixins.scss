@@ -17,6 +17,12 @@
 	}
 }
 
+@mixin firefox {
+	@-moz-document url-prefix() {
+		@content;
+	}
+}
+
 //Pseudo class
 @mixin pseudo($content, $width, $height) {
 	content: $content;
@@ -26,7 +32,7 @@
 }
 
 // position
-@mixin position($position, $top, $right, $bottom, $left) {
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
 	position: $position;
 	top: $top;
 	right: $right;
@@ -43,31 +49,46 @@
 }
 
 //Flex center align
-@mixin flexCenter($justify) {
+@mixin flexCenter($justify: flex-start) {
 	display: flex;
 	justify-content: $justify;
 	align-items: center;
 }
 
+@mixin shadow01 {
+	box-shadow: 0px 4px 10px 0px rgba(75, 73, 88, 0.08);
+}
+
+@mixin shadow02 {
+	box-shadow: 0px 4px 8px 0px rgba(76, 42, 81, 0.06);
+}
+
+@mixin shadow03 {
+	box-shadow: 0px 0px 20px 0px rgba(76, 42, 81, 0.16);
+}
+
 $w-scrollbar: 8px;
 
 //Scroll bar
-@mixin scrollbarY {
+
+@mixin scrollbar($size) {
 	&::-webkit-scrollbar {
-		width: $w-scrollbar;
+		width: $size;
+		height: $size;
 	}
 
 	&::-webkit-scrollbar-button {
+		width: 0;
 		height: 0;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: #c1c1c1;
+		background-color: #bfbfbf;
 		border-radius: 10px;
 	}
 
 	&::-webkit-scrollbar-track {
-		background-color: #e5e5e5;
+		background-color: #fafafa;
 	}
 
 	&::-webkit-scrollbar-button:start:decrement,

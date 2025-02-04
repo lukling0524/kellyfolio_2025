@@ -1,10 +1,34 @@
+@use '@css/abstracts' as *;
+
+@font-face {
+	font-family: 'Pretendard Variable';
+	font-weight: 45 920;
+	font-style: normal;
+	font-display: swap;
+	src: url('/assets/font/PretendardVariable.woff2') format('woff2-variations');
+}
+
+html,
+body,
+button,
+pre {
+	font-family: $font;
+}
+
+html,
+body,
+div,
+textarea {
+	// @include scrollbar(8px);
+}
+
 body {
 	font-size: 19px;
 	line-height: 1.7;
 	@include get-color(color, color-font);
 	background: url(#{$path-image}/bg-intro_obj.png) no-repeat top 40% center;
 	@include get-color(background-color, color-bg);
-	@include scrollbarY;
+	// @include scrollbar(8px);
 	overflow-x: hidden;
 	transition: color, background 0.2s;
 
@@ -17,4 +41,14 @@ body {
 		overflow-y: hidden;
 		padding-right: 8px;
 	}
+}
+
+.hide,
+.hidden {
+	display: none !important;
+}
+
+.text-hide {
+	font-size: 0 !important;
+	text-indent: -9999px;
 }
