@@ -84,9 +84,6 @@ $sectionSpaceMobile: 60px;
 	.avatar {
 		display: block;
 		width: 85%;
-		max-width: 398px;
-		margin: 0 auto;
-		border-radius: 50%;
 		overflow: hidden;
 
 		@include mobs {
@@ -94,7 +91,11 @@ $sectionSpaceMobile: 60px;
 		}
 
 		&__sequence {
+			display: block;
 			width: 100%;
+			max-width: 398px;
+			margin: 0 auto;
+			border-radius: 50%;
 		}
 	}
 

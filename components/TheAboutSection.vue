@@ -4,7 +4,7 @@
 			<article class="about__intro">
 				<div class="about__visual">
 					<div class="avatar">
-						<canvas ref="avatarCanvas" class="avatar" width="398" height="506"></canvas>
+						<canvas ref="avatarCanvas" class="avatar__sequence" width="398" height="506"></canvas>
 					</div>
 				</div>
 
