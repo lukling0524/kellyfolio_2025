@@ -29,7 +29,7 @@ $colors: (
 );
 
 @function get-color($key, $type: 'dark') {
-	@each $name, $color in map-get($colors, $type) {
+	@each $name, $color in map.get($colors, $type) {
 		@if ($key == $name) {
 			@return $color;
 		}

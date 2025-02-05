@@ -4,7 +4,7 @@
 			<article class="about__intro">
 				<div class="about__visual">
 					<div class="avata">
-						<img class="avata__sequence" src="https://storage.googleapis.com/kellyfolio0524.appspot.com/avata-1.png" alt="아바타 캐릭터 이미지 시퀀스" />
+						<BaseImageOpt class="avata__sequence" src="imagesequence/avatar-01.png" alt="아바타 캐릭터 이미지 시퀀스" />
 					</div>
 				</div>
 
@@ -51,7 +51,21 @@
 		</div>
 	</section>
 </template>
+<script setup>
+	const { $gsap } = useNuxtApp();
 
-<script setup></script>
-
+	onMounted(() => {
+		$gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: '.section__title',
+					start: 'top 0',
+					end: 'bottom 0',
+					scrub: true,
+					markers: true,
+				},
+			})
+			.fromTo('.section__title', { opacity: 0, x: -200 }, { opacity: 1, x: 0 });
+	});
+</script>
 <style lang="scss" scoped></style>

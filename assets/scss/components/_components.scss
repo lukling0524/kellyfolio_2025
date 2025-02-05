@@ -1,3 +1,5 @@
+@use '@css/abstracts' as *;
+
 .svg-color {
 	@include get-color(stroke, color-font);
 }

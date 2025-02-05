@@ -23,6 +23,7 @@ export default defineNuxtConfig({
 		},
 	},
 	modules: ['@nuxt/image'],
+	plugins: ['@/plugins/gsap.client.js'],
 	nitro: {
 		compressPublicAssets: true,
 	},

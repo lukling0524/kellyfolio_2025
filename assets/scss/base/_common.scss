@@ -19,7 +19,7 @@ html,
 body,
 div,
 textarea {
-	// @include scrollbar(8px);
+	@include scrollbar(8px);
 }
 
 body {
@@ -28,7 +28,7 @@ body {
 	@include get-color(color, color-font);
 	background: url(#{$path-image}/bg-intro_obj.png) no-repeat top 40% center;
 	@include get-color(background-color, color-bg);
-	// @include scrollbar(8px);
+	@include scrollbar(8px);
 	overflow-x: hidden;
 	transition: color, background 0.2s;
 

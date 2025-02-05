@@ -1,10 +1,11 @@
 <template>
 	<div>
+		<TheLoading />
 		<TheHeader />
 		<div>
 			<TheAboutSection />
-			<TheWaysSection />
 			<TheProjectSection />
+			<TheWaysSection />
 			<TheContactSection />
 		</div>
 		<footer class="footer">&copy;2025 KELLY. ALL RIGHTS RESERVED</footer>
