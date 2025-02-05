@@ -22,4 +22,17 @@ export default defineNuxtConfig({
 			},
 		},
 	},
+	modules: ['@nuxt/image'],
+	nitro: {
+		compressPublicAssets: true,
+	},
+	image: {
+		format: ['webp', 'avif', 'png'],
+		screens: {
+			sm: 500,
+			md: 768,
+			lg: 1100,
+			xl: 1400,
+		},
+	},
 });
