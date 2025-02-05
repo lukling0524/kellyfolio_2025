@@ -4,7 +4,7 @@
 			<article class="about__intro">
 				<div class="about__visual">
 					<div class="avata">
-						<BaseImageOpt class="avata__sequence" :src="avatarImgSrc" alt="아바타 캐릭터 이미지 시퀀스" />
+						<canvas ref="avatarCanvas" class="avata__sequence-canvas" width="640" height="700"></canvas>
 					</div>
 				</div>
 
@@ -54,58 +54,82 @@
 
 <script setup>
 	const { $gsap, $ScrollTrigger } = useNuxtApp();
-	const avatarImgSrc = ref('imagesequence/avatar-01.png');
+	const avatarCanvas = ref(null);
 	const avataImgSqc = [];
+	const totalFrames = 70; // 총 프레임 수
 
+	// 사전 이미지 로딩
 	function preloadImages() {
-		for (let i = 1; i < 70; i++) {
-			const formattedIndex = String(i).padStart(2, '0'); // 01, 02, ..., 47
-			const img = new Image();
-			img.src = `/imagesequence/avatar-${formattedIndex}.png`;
-			avataImgSqc.push(img.src);
-		}
-	}
+		let loadedImages = 0;
 
-	onMounted(() => {
-		preloadImages();
+		return new Promise((resolve, reject) => {
+			for (let i = 1; i <= totalFrames; i++) {
+				const formattedIndex = String(i).padStart(2, '0');
+				const img = new Image();
 
-		const imgTag = document.querySelector('.avata__sequence');
+				img.src = `/images/imagesequence/avatar-${formattedIndex}.png`;
+				img.onload = () => {
+					avataImgSqc.push(img); // Push the loaded image to the array
+					loadedImages++;
 
-		if (!imgTag) {
-			console.error('아바타 이미지 태그를 찾을 수 없습니다.');
-			return;
-		}
-
-		const avataImgSqc = [];
-		for (let i = 1; i < 70; i++) {
-			avataImgSqc.push(`imagesequence/avatar-${i}.png`);
-		}
-
-		const img = { crntImg: 0 };
-
-		$gsap.killTweensOf(img);
-
-		// GSAP 애니메이션 설정
-		$gsap.to(img, {
-			crntImg: avataImgSqc.length,
-			duration: 1,
-			snap: 'crntImg',
-			immediateRender: true,
-			onUpdate: () => {
-				const formattedIndex = String(img.crntImg + 1).padStart(2, '0');
-				avatarImgSrc.value = `/imagesequence/avatar-${formattedIndex}.png`;
-			},
-			scrollTrigger: {
-				trigger: '.about',
-				start: 'top top',
-				end: '+=2600px',
-				scrub: true,
-				pin: '.about',
-				markers: true,
-			},
+					if (loadedImages === totalFrames) {
+						resolve(); // All images loaded successfully
+					}
+				};
+				img.onerror = error => {
+					reject(`Image failed to load: ${img.src}`);
+				};
+			}
 		});
+	}
+	onMounted(async () => {
+		try {
+			await preloadImages(); // Wait until all images are loaded
 
-		$ScrollTrigger.refresh();
+			const canvas = avatarCanvas.value;
+			const ctx = canvas.getContext('2d');
+			const img = { crntImg: 0 };
+			let lastScrollPos = 0;
+
+			// GSAP animation setup
+			$gsap.to(img, {
+				crntImg: totalFrames - 1,
+				duration: 1,
+				snap: 'crntImg',
+				immediateRender: true,
+				onUpdate: () => {
+					const scrollPos = window.scrollY;
+
+					// Only update if scroll position changes significantly
+					if (Math.abs(scrollPos - lastScrollPos) < 10) {
+						return;
+					}
+
+					lastScrollPos = scrollPos;
+
+					// Clear previous frame and draw new one on canvas
+					const imgToDraw = avataImgSqc[Math.round(img.crntImg)];
+					ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
+					ctx.drawImage(imgToDraw, 0, 0, canvas.width, canvas.height); // Draw current image
+				},
+				scrollTrigger: {
+					trigger: '.about',
+					start: 'top top',
+					end: '+=4700px',
+					scrub: 1,
+					pin: '.about',
+					markers: false,
+				},
+			});
+		} catch (error) {
+			console.error('Error loading images:', error);
+		}
 	});
 </script>
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+	.avata__sequence-canvas {
+		width: 100%;
+		height: auto;
+	}
+</style>
