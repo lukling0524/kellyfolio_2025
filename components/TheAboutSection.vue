@@ -3,8 +3,8 @@
 		<div class="section__container">
 			<article class="about__intro">
 				<div class="about__visual">
-					<div class="avata">
-						<canvas ref="avatarCanvas" class="avata__sequence-canvas" width="640" height="700"></canvas>
+					<div class="avatar">
+						<canvas ref="avatarCanvas" class="avatar" width="398" height="506"></canvas>
 					</div>
 				</div>
 
@@ -55,10 +55,10 @@
 <script setup>
 	const { $gsap, $ScrollTrigger } = useNuxtApp();
 	const avatarCanvas = ref(null);
-	const avataImgSqc = [];
-	const totalFrames = 70; // 총 프레임 수
+	const avatarImgSqc = [];
+	const totalFrames = 70; // 총 프레임 수(image sequence 이미지 개수)
 
-	// 사전 이미지 로딩
+	// 사전 이미지 로드
 	function preloadImages() {
 		let loadedImages = 0;
 
@@ -69,29 +69,27 @@
 
 				img.src = `/images/imagesequence/avatar-${formattedIndex}.png`;
 				img.onload = () => {
-					avataImgSqc.push(img); // Push the loaded image to the array
+					avatarImgSqc.push(img);
 					loadedImages++;
 
 					if (loadedImages === totalFrames) {
-						resolve(); // All images loaded successfully
+						resolve();
 					}
 				};
 				img.onerror = error => {
-					reject(`Image failed to load: ${img.src}`);
+					reject(`❗️이미지 로드 실패: ${img.src}`);
 				};
 			}
 		});
 	}
 	onMounted(async () => {
 		try {
-			await preloadImages(); // Wait until all images are loaded
+			await preloadImages(); // 모든 이미지 로드까지 대기
 
 			const canvas = avatarCanvas.value;
 			const ctx = canvas.getContext('2d');
 			const img = { crntImg: 0 };
-			let lastScrollPos = 0;
 
-			// GSAP animation setup
 			$gsap.to(img, {
 				crntImg: totalFrames - 1,
 				duration: 1,
@@ -99,37 +97,22 @@
 				immediateRender: true,
 				onUpdate: () => {
 					const scrollPos = window.scrollY;
+					const imgToDraw = avatarImgSqc[Math.round(img.crntImg)];
 
-					// Only update if scroll position changes significantly
-					if (Math.abs(scrollPos - lastScrollPos) < 10) {
-						return;
-					}
-
-					lastScrollPos = scrollPos;
-
-					// Clear previous frame and draw new one on canvas
-					const imgToDraw = avataImgSqc[Math.round(img.crntImg)];
 					ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous image
 					ctx.drawImage(imgToDraw, 0, 0, canvas.width, canvas.height); // Draw current image
 				},
 				scrollTrigger: {
 					trigger: '.about',
 					start: 'top top',
-					end: '+=4700px',
+					end: '+=1800px',
 					scrub: 1,
 					pin: '.about',
 					markers: false,
 				},
 			});
 		} catch (error) {
-			console.error('Error loading images:', error);
+			console.error('❗️이미지 로딩 에러:', error);
 		}
 	});
 </script>
-
-<style lang="scss" scoped>
-	.avata__sequence-canvas {
-		width: 100%;
-		height: auto;
-	}
-</style>
