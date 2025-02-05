@@ -48,38 +48,36 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue';
-
 	onMounted(() => {
 		const { $gsap } = useNuxtApp();
 
-		const $path_k = document.querySelector('.logo__k'),
-			$path_elly = document.querySelector('.logo__elly'),
-			$path_eye_l = document.querySelector('.logo__eye-l'),
-			$path_eye_r = document.querySelector('.logo__eye-r'),
-			$path_k_leng = Math.ceil($path_k.getTotalLength()),
-			$path_elly_leng = Math.ceil($path_elly.getTotalLength()),
-			$path_eye_l_leng = Math.ceil($path_eye_l.getTotalLength()),
-			$path_eye_r_leng = Math.ceil($path_eye_r.getTotalLength());
+		const path_k = document.querySelector('.logo__k'),
+			path_elly = document.querySelector('.logo__elly'),
+			path_eye_l = document.querySelector('.logo__eye-l'),
+			path_eye_r = document.querySelector('.logo__eye-r'),
+			path_k_leng = Math.ceil(path_k.getTotalLength()),
+			path_elly_leng = Math.ceil(path_elly.getTotalLength()),
+			path_eye_l_leng = Math.ceil(path_eye_l.getTotalLength()),
+			path_eye_r_leng = Math.ceil(path_eye_r.getTotalLength());
 
-		$path_k.style.cssText = `
-      stroke-dasharray: ${$path_k_leng};
-      stroke-dashoffset:${$path_k_leng};
+		path_k.style.cssText = `
+      stroke-dasharray: ${path_k_leng};
+      stroke-dashoffset:${path_k_leng};
     `;
 
-		$path_elly.style.cssText = `
-      stroke-dasharray: ${$path_elly_leng};
-      stroke-dashoffset: ${$path_elly_leng};
+		path_elly.style.cssText = `
+      stroke-dasharray: ${path_elly_leng};
+      stroke-dashoffset: ${path_elly_leng};
     `;
 
-		$path_eye_l.style.cssText = `
-      stroke-dasharray: ${$path_eye_l_leng};
-      stroke-dashoffset:${$path_eye_l_leng};
+		path_eye_l.style.cssText = `
+      stroke-dasharray: ${path_eye_l_leng};
+      stroke-dashoffset:${path_eye_l_leng};
     `;
 
-		$path_eye_r.style.cssText = `
-      stroke-dasharray: ${$path_eye_r_leng};
-      stroke-dashoffset: ${$path_eye_r_leng};
+		path_eye_r.style.cssText = `
+      stroke-dasharray: ${path_eye_r_leng};
+      stroke-dashoffset: ${path_eye_r_leng};
     `;
 
 		// Viewport 크기에 따른 easing 설정
@@ -90,10 +88,10 @@
 		const tween_logoDraw = $gsap.timeline({ delay: 1 });
 
 		tween_logoDraw
-			.to($path_k, { strokeDashoffset: 0, duration: 0.65, ease: 'sine.in' })
-			.to($path_elly, { strokeDashoffset: 0, duration: 2.2, ease: 'sine.in' })
-			.to($path_eye_l, { strokeDashoffset: 0, duration: 0.6, delay: 0.4, ease: eyeEase })
-			.to($path_eye_r, { strokeDashoffset: 0, duration: 0.7, delay: 0.1, ease: eyeEase }, 'queue');
+			.to(path_k, { strokeDashoffset: 0, duration: 0.65, ease: 'sine.in' })
+			.to(path_elly, { strokeDashoffset: 0, duration: 2.2, ease: 'sine.in' })
+			.to(path_eye_l, { strokeDashoffset: 0, duration: 0.6, delay: 0.4, ease: eyeEase })
+			.to(path_eye_r, { strokeDashoffset: 0, duration: 0.7, delay: 0.1, ease: eyeEase }, 'queue');
 	});
 </script>
 

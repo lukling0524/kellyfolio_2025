@@ -4,7 +4,7 @@
 			<article class="about__intro">
 				<div class="about__visual">
 					<div class="avata">
-						<BaseImageOpt class="avata__sequence" src="imagesequence/avatar-01.png" alt="아바타 캐릭터 이미지 시퀀스" />
+						<BaseImageOpt class="avata__sequence" :src="avatarImgSrc" alt="아바타 캐릭터 이미지 시퀀스" />
 					</div>
 				</div>
 
@@ -51,21 +51,61 @@
 		</div>
 	</section>
 </template>
+
 <script setup>
-	const { $gsap } = useNuxtApp();
+	const { $gsap, $ScrollTrigger } = useNuxtApp();
+	const avatarImgSrc = ref('imagesequence/avatar-01.png');
+	const avataImgSqc = [];
+
+	function preloadImages() {
+		for (let i = 1; i < 70; i++) {
+			const formattedIndex = String(i).padStart(2, '0'); // 01, 02, ..., 47
+			const img = new Image();
+			img.src = `/imagesequence/avatar-${formattedIndex}.png`;
+			avataImgSqc.push(img.src);
+		}
+	}
 
 	onMounted(() => {
-		$gsap
-			.timeline({
-				scrollTrigger: {
-					trigger: '.section__title',
-					start: 'top 0',
-					end: 'bottom 0',
-					scrub: true,
-					markers: true,
-				},
-			})
-			.fromTo('.section__title', { opacity: 0, x: -200 }, { opacity: 1, x: 0 });
+		preloadImages();
+
+		const imgTag = document.querySelector('.avata__sequence');
+
+		if (!imgTag) {
+			console.error('아바타 이미지 태그를 찾을 수 없습니다.');
+			return;
+		}
+
+		const avataImgSqc = [];
+		for (let i = 1; i < 70; i++) {
+			avataImgSqc.push(`imagesequence/avatar-${i}.png`);
+		}
+
+		const img = { crntImg: 0 };
+
+		$gsap.killTweensOf(img);
+
+		// GSAP 애니메이션 설정
+		$gsap.to(img, {
+			crntImg: avataImgSqc.length,
+			duration: 1,
+			snap: 'crntImg',
+			immediateRender: true,
+			onUpdate: () => {
+				const formattedIndex = String(img.crntImg + 1).padStart(2, '0');
+				avatarImgSrc.value = `/imagesequence/avatar-${formattedIndex}.png`;
+			},
+			scrollTrigger: {
+				trigger: '.about',
+				start: 'top top',
+				end: '+=2600px',
+				scrub: true,
+				pin: '.about',
+				markers: true,
+			},
+		});
+
+		$ScrollTrigger.refresh();
 	});
 </script>
 <style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TheLoading />
+		<!-- <TheLoading /> -->
 		<TheHeader />
 		<div>
 			<TheAboutSection />
