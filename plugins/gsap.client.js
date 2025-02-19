@@ -1,9 +1,13 @@
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+export default defineNuxtPlugin(() => {
+	gsap.registerPlugin(ScrollTrigger);
 
-export default defineNuxtPlugin(nuxtApp => {
-	nuxtApp.provide('gsap', gsap);
-	nuxtApp.provide('ScrollTrigger', ScrollTrigger);
+	return {
+		provide: {
+			gsap, // gsap 전역 등록
+			ScrollTrigger, // ScrollTrigger 전역 등록
+		},
+	};
 });

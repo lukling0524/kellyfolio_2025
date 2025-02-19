@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <TheLoading /> -->
+		<TheLoading />
 		<TheHeader />
 		<div>
 			<TheAboutSection />
@@ -12,7 +12,7 @@
 	</div>
 </template>
 
-<script setpup>
+<script setup>
 	import Lenis from 'lenis';
 	if (import.meta.env.SSR === false) {
 		const lenis = new Lenis({

@@ -1,7 +1,7 @@
 <template>
 	<div class="wrap loading">
 		<div class="intro-box">
-			<h1 aria-label="로고">
+			<div aria-label="로고">
 				<svg id="logo" class="logo" width="312.38" height="244.039" viewBox="0 0 312.38 244.039" tabindex="0">
 					<g transform="translate(940.297 -1371.172)">
 						<path class="logo__k svg-color" d="M-920.1,1376.4c2,42.7-2,82-14,123.3" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8" />
@@ -19,7 +19,7 @@
 						<path class="logo__eye-r svg-color" d="M-689.5,1540.4c0,5.3-.7,10,.7,14.7" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8" />
 					</g>
 				</svg>
-			</h1>
+			</div>
 			<button class="hamburger" aria-label="모바일 메뉴 오픈 버튼">
 				<span class="line"></span>
 				<span class="line"></span>
@@ -95,6 +95,6 @@
 	});
 </script>
 
-<style lang="scss" scoped>
-	@import '@css/layout/loading';
+<style lang="scss">
+	@use '@css/layout/loading';
 </style>
