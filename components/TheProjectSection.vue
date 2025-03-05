@@ -1,5 +1,5 @@
 <template>
-	<section data-name="project" class="project section">
+	<section class="project section" data-name="project" >
 		<div class="section__container">
 			<article class="project__wrap">
 				<h2 class="section__title"><span class="font-accent">프로젝트 </span>리스트</h2>

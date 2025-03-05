@@ -1,5 +1,5 @@
 <template>
-	<section data-name="howtowork" class="howtowork section">
+	<section class="howtowork section" data-name="howtowork" >
 		<div class="section__container">
 			<h2 class="section__title">이렇게 <span class="font-accent">일</span>합니다<span class="font-accent">.</span></h2>
 			<ul class="howtowork__wrap">

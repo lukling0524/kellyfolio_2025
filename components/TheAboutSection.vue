@@ -1,5 +1,5 @@
 <template>
-	<section class="about">
+	<section class="about" data-name="home">
 		<div class="section__container">
 			<article class="about__intro">
 				<div class="about__visual">
